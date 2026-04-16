@@ -1,0 +1,130 @@
+/* Base Reset & Dark Background */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #0f111a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* The overall container */
+.cradle {
+  display: flex;
+  justify-content: center;
+  border-top: 4px solid #333; /* The top bar */
+  padding-top: 0;
+  width: 300px;
+}
+
+/* Individual Pendulum Group */
+.pendulum {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50px; /* Spacing between bulbs */
+  transform-origin: top center; /* Swings from the top bar */
+}
+
+/* The String */
+.string {
+  width: 2px;
+  height: 150px;
+  background-color: #555;
+}
+
+/* The Metal Base of the Bulb */
+.bulb-base {
+  width: 20px;
+  height: 15px;
+  background-color: #666;
+  border-radius: 3px 3px 0 0;
+  margin-top: -2px; /* Overlaps string slightly */
+  z-index: 2;
+}
+
+/* The Glass Bulb (Off State by default) */
+.bulb {
+  width: 40px;
+  height: 40px;
+  background-color: #222; /* Dark glass */
+  border-radius: 50%;
+  margin-top: -5px;
+  border: 2px solid #444;
+  transition: all 0.1s ease;
+}
+
+/* =========================================
+   ANIMATIONS & KEYFRAMES
+   ========================================= */
+
+/* Timing variables */
+:root {
+  --duration: 1.4s;
+}
+
+/* Left Pendulum Animation (Swings Left and Glows) */
+.left-swing {
+  animation: swing-left var(--duration) infinite ease-in-out;
+}
+.left-swing .bulb {
+  animation: glow-left var(--duration) infinite;
+}
+
+/* Right Pendulum Animation (Swings Right and Glows) */
+.right-swing {
+  animation: swing-right var(--duration) infinite ease-in-out;
+}
+.right-swing .bulb {
+  animation: glow-right var(--duration) infinite;
+}
+
+/* Physics Swing for the Left Bulb */
+@keyframes swing-left {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(35deg); }
+  50% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Physics Swing for the Right Bulb */
+@keyframes swing-right {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-35deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Glowing Effect for the Left Bulb */
+@keyframes glow-left {
+  0%, 49.9% {
+    background-color: #ffeb3b;
+    border-color: #fff;
+    box-shadow: 0 0 20px #ffeb3b, 0 0 40px #ffc107;
+  }
+  50%, 100% {
+    background-color: #222;
+    border-color: #444;
+    box-shadow: none;
+  }
+}
+
+/* Glowing Effect for the Right Bulb */
+@keyframes glow-right {
+  0%, 49.9% {
+    background-color: #222;
+    border-color: #444;
+    box-shadow: none;
+  }
+  50%, 100% {
+    background-color: #ffeb3b;
+    border-color: #fff;
+    box-shadow: 0 0 20px #ffeb3b, 0 0 40px #ffc107;
+  }
+}
